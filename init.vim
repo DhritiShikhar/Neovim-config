@@ -2,6 +2,7 @@ call plug#begin()
 
 
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'tpope/vim-fugitive'
 Plug 'sebdah/vim-delve'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -9,6 +10,7 @@ Plug 'morhetz/gruvbox'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'tarekbecker/vim-yaml-formatter'
@@ -22,6 +24,9 @@ Plug 'leafgarland/typescript-vim'
 Plug 'vim-scripts/louver.vim'
 Plug 'nsf/gocode', { 'rtp': 'vim',
   \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'andrewstuart/vim-kubernetes'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'endel/vim-github-colorscheme'
 call plug#end()
 
 nmap <F2> :NERDTreeToggle<CR>
@@ -36,7 +41,7 @@ set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 let g:go_fmt_command = "goimports"    
 let g:go_fmt_autosave = 1
 
-" Code Highlight
+" Go Code Highlight
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
@@ -45,6 +50,7 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
+let g:go_highlight_generate_tags = 1
 let g:go_addtags_transform = "snakecase"
 
 
@@ -72,8 +78,9 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 set nu
-colorscheme gruvbox
-" colorscheme louver
+" colorscheme gruvbox
+colorscheme louver
+" colorscheme github
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " YAML Settings
@@ -81,11 +88,11 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
 " autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-" JavaScript Settings
-autocmd FileType javascript set formatprg=prettier\ --stdin
-"autocmd BufWritePre *.js :normal gggqG
-
-" TypeScript Settings
-autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
-
-
+" Haskell Settings
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
